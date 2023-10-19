@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { SessionModule } from './session/session.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { User } from './user/entities/user.entity';
       synchronize: true, // 是否自动同步数据库结构，慎用
     }),
     UserModule,
+    SessionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
