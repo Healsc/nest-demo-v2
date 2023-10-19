@@ -6,6 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
+import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 
 import CeateUserInterface from './interface/create-user-interface';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -23,9 +24,16 @@ export class UserService {
   ) {}
   test(p: string) {
     const hash = md5(p);
+    const salt = genSaltSync(10);
+    const hash2 = hashSync(p, salt);
+    const f = compareSync(p, hash2);
+    const f2 = compareSync('p', hash2);
     return {
       p,
       hash,
+      hash2,
+      f,
+      f2,
     };
   }
   async create(createUserDto: CeateUserInterface) {
@@ -34,7 +42,7 @@ export class UserService {
   }
 
   async resign(createUserDto: CeateUserInterface) {
-    const { username } = createUserDto;
+    const { username, password } = createUserDto;
     const haveUserFlag = await this.userRepository.findOneBy({ username });
     if (haveUserFlag) {
       // throw new ForbiddenException('用户已存在');
@@ -43,7 +51,10 @@ export class UserService {
         error: '用户已存在',
       };
     }
-    const res = await this.userRepository.save(createUserDto);
+    const salt = genSaltSync(10);
+    const hashPassword = hashSync(password, salt);
+    const newUser = { ...createUserDto, password: hashPassword };
+    const res = await this.userRepository.save(newUser);
     return res;
   }
 
@@ -55,7 +66,7 @@ export class UserService {
         error: '用户不存在或密码错误',
       };
     }
-    const p = password === currUser.password;
+    const p = compareSync(password, currUser.password);
     if (!p) {
       return {
         error: '用户不存在或密码错误',
