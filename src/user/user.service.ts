@@ -1,8 +1,12 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Injectable,
+  InternalServerErrorException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateUserDto } from './dto/create-user.dto';
+import CeateUserInterface from './interface/create-user-interface';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
@@ -13,8 +17,19 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CeateUserInterface) {
+    const res = await this.userRepository.save(createUserDto);
+    return res;
+  }
+
+  async resign(createUserDto: CeateUserInterface) {
+    const { username } = createUserDto;
+    const haveUserFlag = await this.userRepository.findOneBy({ username });
+    if (haveUserFlag) {
+      throw new ForbiddenException('用户已存在');
+    }
+    const res = await this.userRepository.save(createUserDto);
+    return res;
   }
 
   async findAll() {
