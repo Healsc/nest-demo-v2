@@ -26,10 +26,31 @@ export class UserService {
     const { username } = createUserDto;
     const haveUserFlag = await this.userRepository.findOneBy({ username });
     if (haveUserFlag) {
-      throw new ForbiddenException('用户已存在');
+      // throw new ForbiddenException('用户已存在');
+      return {
+        success: false,
+        error: '用户已存在',
+      };
     }
     const res = await this.userRepository.save(createUserDto);
     return res;
+  }
+
+  async login(createUserDto: CeateUserInterface) {
+    const { username, password } = createUserDto;
+    const currUser = await this.userRepository.findOneBy({ username });
+    if (!currUser) {
+      return {
+        error: '用户不存在或密码错误',
+      };
+    }
+    const p = password === currUser.password;
+    if (!p) {
+      return {
+        error: '用户不存在或密码错误',
+      };
+    }
+    return currUser;
   }
 
   async findAll() {

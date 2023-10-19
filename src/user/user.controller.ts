@@ -25,6 +25,11 @@ export class UserController {
     return this.userService.resign(createUserDto);
   }
 
+  @Post('login')
+  login(@Body() createUserDto: CreateUserDto) {
+    return this.userService.login(createUserDto);
+  }
+
   @Get()
   findAll() {
     return this.userService.findAll();
