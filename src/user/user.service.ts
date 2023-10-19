@@ -60,6 +60,17 @@ export class UserService {
     return res;
   }
 
+  async validateToken(t) {
+    const tt = t.split(' ')[1];
+    const res = this.jwtService.decode(tt);
+    if (!res) return false;
+    const user = await this.userRepository.findOneBy({
+      username: res['username'],
+    });
+    if (!user) return false;
+    return true;
+  }
+
   async login(createUserDto: CeateUserInterface) {
     const { username, password } = createUserDto;
     const currUser = await this.userRepository.findOneBy({ username });

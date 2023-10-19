@@ -7,10 +7,12 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserGuard } from './user.guard';
 
 @Controller('api/user')
 export class UserController {
@@ -36,6 +38,7 @@ export class UserController {
     return this.userService.test(p);
   }
 
+  @UseGuards(UserGuard)
   @Get()
   findAll() {
     return this.userService.findAll();

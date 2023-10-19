@@ -12,7 +12,7 @@ async function bootstrap() {
       resave: false, // 每次请求都重新设置
       saveUninitialized: true, // 未初始化的是否返回session
       cookie: {
-        maxAge: 1000 * 10, // ms
+        maxAge: 1000 * 60 * 60, // ms
       },
     }),
   );
