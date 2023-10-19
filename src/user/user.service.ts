@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
 
 import CeateUserInterface from './interface/create-user-interface';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -21,6 +22,7 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private jwtService: JwtService,
   ) {}
   test(p: string) {
     const hash = md5(p);
@@ -72,7 +74,16 @@ export class UserService {
         error: '用户不存在或密码错误',
       };
     }
-    return currUser;
+    const jwt = this.jwtService.sign({
+      username,
+    });
+    const decode = this.jwtService.decode(jwt);
+    return {
+      success: true,
+      user: currUser,
+      token: jwt,
+      decode,
+    };
   }
 
   async findAll() {
