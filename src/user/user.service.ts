@@ -5,10 +5,15 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as crypto from 'crypto';
 
 import CeateUserInterface from './interface/create-user-interface';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+
+function md5(s: string) {
+  return crypto.createHash('md5').update(s).digest('hex');
+}
 
 @Injectable()
 export class UserService {
@@ -16,7 +21,13 @@ export class UserService {
     @InjectRepository(User)
     private userRepository: Repository<User>,
   ) {}
-
+  test(p: string) {
+    const hash = md5(p);
+    return {
+      p,
+      hash,
+    };
+  }
   async create(createUserDto: CeateUserInterface) {
     const res = await this.userRepository.save(createUserDto);
     return res;
