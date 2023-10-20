@@ -17,6 +17,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserGuard } from './user.guard';
 import { JwtAuthGuard } from './jwt-auth.grard';
+import { Public } from 'src/common/public.decorator';
 
 @Controller('api/user')
 export class UserController {
@@ -32,6 +33,7 @@ export class UserController {
     return this.userService.resign(createUserDto);
   }
 
+  @Public()
   @Post('login')
   login(@Body() createUserDto: CreateUserDto) {
     return this.userService.login(createUserDto);
