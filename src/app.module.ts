@@ -9,6 +9,7 @@ import { User } from './user/entities/user.entity';
 import { SessionModule } from './session/session.module';
 import { JwtAuthGuard } from './common/jwt-auth.grard';
 import { AuthModule } from './auth/auth.module';
+import { GrardModule } from './grard/grard.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     SessionModule,
     AuthModule,
+    GrardModule,
   ],
   controllers: [AppController],
   providers: [

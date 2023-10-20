@@ -1,17 +1,10 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
-import * as dayjs from 'dayjs';
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 
 import CeateUserInterface from './interface/create-user-interface';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 
 function md5(s: string) {
@@ -34,7 +27,6 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-    private jwtService: JwtService,
   ) {}
   test(p: string) {
     const hash = md5(p);
@@ -57,23 +49,6 @@ export class UserService {
     } catch {
       return null;
     }
-  }
-
-  async validateToken(t) {
-    const tt = t.split(' ')[1];
-    const res = this.jwtService.decode(tt);
-
-    if (!res) return false;
-    const exp = res['exp'];
-
-    const expireFlag = dayjs().diff(dayjs.unix(exp)) > 0;
-    if (expireFlag) return false;
-
-    const user = await this.userRepository.findOneBy({
-      username: res['username'],
-    });
-    if (!user) return false;
-    return true;
   }
 
   async validate(username: string) {
