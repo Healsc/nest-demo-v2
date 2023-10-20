@@ -24,6 +24,11 @@ export interface UserInterface {
   password: string;
 }
 
+export interface FindUserInterface {
+  id?: number;
+  username?: string;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -46,25 +51,12 @@ export class UserService {
     };
   }
   async create(createUserDto: CeateUserInterface) {
-    const res = await this.userRepository.save(createUserDto);
-    return res;
-  }
-
-  async resign(createUserDto: CeateUserInterface) {
-    const { username, password } = createUserDto;
-    const haveUserFlag = await this.userRepository.findOneBy({ username });
-    if (haveUserFlag) {
-      // throw new ForbiddenException('用户已存在');
-      return {
-        success: false,
-        error: '用户已存在',
-      };
+    try {
+      const res = await this.userRepository.save(createUserDto);
+      return res;
+    } catch {
+      return null;
     }
-    const salt = genSaltSync(10);
-    const hashPassword = hashSync(password, salt);
-    const newUser = { ...createUserDto, password: hashPassword };
-    const res = await this.userRepository.save(newUser);
-    return res;
   }
 
   async validateToken(t) {
@@ -89,32 +81,6 @@ export class UserService {
     return user;
   }
 
-  async login(createUserDto: CeateUserInterface) {
-    const { username, password } = createUserDto;
-    const currUser = await this.userRepository.findOneBy({ username });
-    if (!currUser) {
-      return {
-        error: '用户不存在或密码错误',
-      };
-    }
-    const p = compareSync(password, currUser.password);
-    if (!p) {
-      return {
-        error: '用户不存在或密码错误',
-      };
-    }
-    const jwt = this.jwtService.sign({
-      username,
-    });
-    const decode = this.jwtService.decode(jwt);
-    return {
-      success: true,
-      user: currUser,
-      token: jwt,
-      decode,
-    };
-  }
-
   async findAll() {
     try {
       const [data, count] = await this.userRepository.findAndCount();
@@ -132,11 +98,11 @@ export class UserService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async findOneBy(where: FindUserInterface) {
+    if (!where) return null;
+    const res = await this.userRepository.findOne({
+      where,
+    });
+    return res;
   }
 }
