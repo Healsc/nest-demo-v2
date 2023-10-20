@@ -16,7 +16,7 @@ import { JwtStrategy } from './jwt-auth.strategy';
         return {
           secret: JWT_SECRET,
           signOptions: {
-            expiresIn: '5m', //设置过期时间
+            expiresIn: '3d', //设置过期时间
           },
         };
       },
