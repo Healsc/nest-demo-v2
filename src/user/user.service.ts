@@ -18,6 +18,12 @@ function md5(s: string) {
   return crypto.createHash('md5').update(s).digest('hex');
 }
 
+export interface UserInterface {
+  id?: number;
+  username: string;
+  password: string;
+}
+
 @Injectable()
 export class UserService {
   constructor(
@@ -76,6 +82,11 @@ export class UserService {
     });
     if (!user) return false;
     return true;
+  }
+
+  async validate(username: string) {
+    const user = this.userRepository.findOneBy({ username });
+    return user;
   }
 
   async login(createUserDto: CeateUserInterface) {

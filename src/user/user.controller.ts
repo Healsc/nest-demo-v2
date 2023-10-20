@@ -8,11 +8,15 @@ import {
   Delete,
   Query,
   UseGuards,
+  Request,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserGuard } from './user.guard';
+import { JwtAuthGuard } from './jwt-auth.grard';
 
 @Controller('api/user')
 export class UserController {
@@ -38,9 +42,17 @@ export class UserController {
     return this.userService.test(p);
   }
 
-  @UseGuards(UserGuard)
+  @UseGuards(JwtAuthGuard)
+  // @UseGuards(AuthGuard('jwt'))
   @Get()
-  findAll() {
+  findAll(@Request() req) {
+    const { user } = req;
+    console.log({ user });
+    /**
+     * id: 6,
+     * username: 'sc',
+     * password: '$2b$10$gLLSUy/aDIOk85rRAbbe6eZFz2yjywaiQNPJSgFawxm.Jl3mGPCpy'
+     */
     return this.userService.findAll();
   }
 

@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { User } from './entities/user.entity';
 import { JWT_SECRET } from './const';
+import { JwtStrategy } from './jwt-auth.strategy';
 
 @Module({
   imports: [
@@ -15,13 +16,13 @@ import { JWT_SECRET } from './const';
         return {
           secret: JWT_SECRET,
           signOptions: {
-            expiresIn: '2h', //设置过期时间
+            expiresIn: '5m', //设置过期时间
           },
         };
       },
     }),
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [UserService, JwtStrategy],
 })
 export class UserModule {}
