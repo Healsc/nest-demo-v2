@@ -44,6 +44,7 @@ export class UserController {
     return this.userService.test(p);
   }
 
+  @Public()
   @UseGuards(JwtAuthGuard)
   // @UseGuards(AuthGuard('jwt'))
   @Get()

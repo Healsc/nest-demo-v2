@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { SessionModule } from './session/session.module';
-import { JwtAuthGuard } from './user/jwt-auth.grard';
+import { JwtAuthGuard } from './common/jwt-auth.grard';
 
 @Module({
   imports: [
