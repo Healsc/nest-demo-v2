@@ -7,6 +7,7 @@ import { AuthController } from './auth.controller';
 import { UserService } from 'src/user/user.service';
 import { User } from '../user/entities/user.entity';
 import { JWT_SECRET } from '../common/const';
+import { JwtStrategy } from '../common/jwt-auth.strategy';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { JWT_SECRET } from '../common/const';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, JwtStrategy],
 })
 export class AuthModule {}
