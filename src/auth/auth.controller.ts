@@ -23,6 +23,11 @@ export class AuthController {
     return this.authService.login(createUserDto);
   }
 
+  @Post('logout')
+  logout() {
+    return true;
+  }
+
   @Get('user')
   user(@Request() req) {
     const { user } = req;
