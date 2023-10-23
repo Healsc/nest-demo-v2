@@ -24,7 +24,7 @@ async function bootstrap() {
       rolling: true, // 每次请求添加cookie
       name: 'session_id', // 存在浏览器cookie中的key
       resave: false, // 每次请求都重新设置
-      saveUninitialized: true, // 未初始化的是否返回session
+      saveUninitialized: false, // 未初始化的是否返回session
       cookie: {
         maxAge: 1000 * 60 * 60, // ms
       },
