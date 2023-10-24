@@ -10,6 +10,8 @@ import { SessionModule } from './session/session.module';
 import { JwtAuthGuard } from './common/jwt-auth.grard';
 import { AuthModule } from './auth/auth.module';
 import { GrardModule } from './grard/grard.module';
+import { RedisModule } from './redis/redis.module';
+import { TestModule } from './test/test.module';
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { GrardModule } from './grard/grard.module';
     SessionModule,
     AuthModule,
     GrardModule,
+    RedisModule,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [

@@ -849,6 +849,40 @@
     picocolors "^1.0.0"
     tslib "^2.6.0"
 
+"@redis/bloom@1.2.0":
+  version "1.2.0"
+  resolved "http://r.npm.sankuai.com/@redis/bloom/download/@redis/bloom-1.2.0.tgz#d3fd6d3c0af3ef92f26767b56414a370c7b63b71"
+  integrity sha1-0/1tPArz75LyZ2e1ZBSjcMe2O3E=
+
+"@redis/client@1.5.11":
+  version "1.5.11"
+  resolved "http://r.npm.sankuai.com/@redis/client/download/@redis/client-1.5.11.tgz#5ee8620fea56c67cb427228c35d8403518efe622"
+  integrity sha1-XuhiD+pWxny0JyKMNdhANRjv5iI=
+  dependencies:
+    cluster-key-slot "1.1.2"
+    generic-pool "3.9.0"
+    yallist "4.0.0"
+
+"@redis/graph@1.1.0":
+  version "1.1.0"
+  resolved "http://r.npm.sankuai.com/@redis/graph/download/@redis/graph-1.1.0.tgz#cc2b82e5141a29ada2cce7d267a6b74baa6dd519"
+  integrity sha1-zCuC5RQaKa2izOfSZ6a3S6pt1Rk=
+
+"@redis/json@1.0.6":
+  version "1.0.6"
+  resolved "http://r.npm.sankuai.com/@redis/json/download/@redis/json-1.0.6.tgz#b7a7725bbb907765d84c99d55eac3fcf772e180e"
+  integrity sha1-t6dyW7uQd2XYTJnVXqw/z3cuGA4=
+
+"@redis/search@1.1.5":
+  version "1.1.5"
+  resolved "http://r.npm.sankuai.com/@redis/search/download/@redis/search-1.1.5.tgz#682b68114049ff28fdf2d82c580044dfb74199fe"
+  integrity sha1-aCtoEUBJ/yj98tgsWABE37dBmf4=
+
+"@redis/time-series@1.0.5":
+  version "1.0.5"
+  resolved "http://r.npm.sankuai.com/@redis/time-series/download/@redis/time-series-1.0.5.tgz#a6d70ef7a0e71e083ea09b967df0a0ed742bc6ad"
+  integrity sha1-ptcO96DnHgg+oJuWffCg7XQrxq0=
+
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
   resolved "http://r.npm.sankuai.com/@sinclair/typebox/download/@sinclair/typebox-0.27.8.tgz#6667fac16c436b5434a387a34dedb013198f6e6e"
@@ -1972,6 +2006,11 @@ clone@^1.0.2:
   resolved "http://r.npm.sankuai.com/clone/download/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+cluster-key-slot@1.1.2:
+  version "1.1.2"
+  resolved "http://r.npm.sankuai.com/cluster-key-slot/download/cluster-key-slot-1.1.2.tgz#88ddaa46906e303b5de30d3153b7d9fe0a0c19ac"
+  integrity sha1-iN2qRpBuMDtd4w0xU7fZ/goMGaw=
+
 co@^4.6.0:
   version "4.6.0"
   resolved "http://r.npm.sankuai.com/co/download/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2853,6 +2892,11 @@ generate-function@^2.3.1:
   integrity sha1-8GlhdpDBDIaOc7hGV0Z2T5fDR58=
   dependencies:
     is-property "^1.0.2"
+
+generic-pool@3.9.0:
+  version "3.9.0"
+  resolved "http://r.npm.sankuai.com/generic-pool/download/generic-pool-3.9.0.tgz#36f4a678e963f4fdb8707eab050823abc4e8f5e4"
+  integrity sha1-NvSmeOlj9P24cH6rBQgjq8To9eQ=
 
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
@@ -4723,6 +4767,18 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
+redis@^4.6.10:
+  version "4.6.10"
+  resolved "http://r.npm.sankuai.com/redis/download/redis-4.6.10.tgz#07f6ea2b2c5455b098e76d1e8c9b3376114e9458"
+  integrity sha1-B/bqKyxUVbCY520ejJszdhFOlFg=
+  dependencies:
+    "@redis/bloom" "1.2.0"
+    "@redis/client" "1.5.11"
+    "@redis/graph" "1.1.0"
+    "@redis/json" "1.0.6"
+    "@redis/search" "1.1.5"
+    "@redis/time-series" "1.0.5"
+
 reflect-metadata@^0.1.13:
   version "0.1.13"
   resolved "http://r.npm.sankuai.com/reflect-metadata/download/reflect-metadata-0.1.13.tgz#67ae3ca57c972a2aa1642b10fe363fe32d49dc08"
@@ -5639,15 +5695,15 @@ y18n@^5.0.5:
   resolved "http://r.npm.sankuai.com/y18n/download/y18n-5.0.8.tgz#7f4934d0f7ca8c56f95314939ddcd2dd91ce1d55"
   integrity sha1-f0k00PfKjFb5UxSTndzS3ZHOHVU=
 
+yallist@4.0.0, yallist@^4.0.0:
+  version "4.0.0"
+  resolved "http://r.npm.sankuai.com/yallist/download/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
+  integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
+
 yallist@^3.0.2:
   version "3.1.1"
   resolved "http://r.npm.sankuai.com/yallist/download/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd"
   integrity sha1-27fa+b/YusmrRev2ArjLrQ1dCP0=
-
-yallist@^4.0.0:
-  version "4.0.0"
-  resolved "http://r.npm.sankuai.com/yallist/download/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
-  integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
 
 yaml@^1.10.0:
   version "1.10.2"
