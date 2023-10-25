@@ -30,20 +30,29 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(req: Request, payload: JwtPayload) {
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
     const { username } = payload;
-    const user = this.userService.validate(username);
+    const user = await this.userService.validate(username);
     if (!user) {
-      throw new UnauthorizedException('Unauthorized - 0');
+      throw new UnauthorizedException('Unauthorized - token验证失败');
     }
+    const { id } = user;
+    const cacheToken = await this.redisService.get(`token_${id}`);
+    if (!cacheToken) {
+      throw new UnauthorizedException('Unauthorized - token已过期');
+    }
+    if (token !== cacheToken) {
+      throw new UnauthorizedException('Unauthorized - token不正确');
+    }
+    await this.redisService.set(`token_${id}`, token, 1 * 60);
     // 黑名单方式开始
-    let keys = [];
-    try {
-      keys = await this.redisService.keys(token);
-    } catch {
-      keys = [];
-    }
-    if (keys.length) {
-      throw new UnauthorizedException('Unauthorized - 1');
-    }
+    // let keys = [];
+    // try {
+    //   keys = await this.redisService.keys(token);
+    // } catch {
+    //   keys = [];
+    // }
+    // if (keys.length) {
+    //   throw new UnauthorizedException('Unauthorized - 1');
+    // }
     // 黑名单方式结束
 
     return user;

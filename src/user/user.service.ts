@@ -52,7 +52,7 @@ export class UserService {
   }
 
   async validate(username: string) {
-    const user = this.userRepository.findOneBy({ username });
+    const user = await this.userRepository.findOneBy({ username });
     return user;
   }
 

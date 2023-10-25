@@ -18,7 +18,7 @@ import { RedisModule } from 'src/redis/redis.module';
         return {
           secret: JWT_SECRET,
           signOptions: {
-            expiresIn: '3d', //设置过期时间
+            // expiresIn: '3d', //设置过期时间
           },
         };
       },
