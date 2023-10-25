@@ -63,6 +63,9 @@ export class AuthService {
         await this.redisService.set(token, '', second);
       } catch {}
     }
-    return true;
+    return {
+      success: true,
+      message: '退出成功',
+    };
   }
 }
