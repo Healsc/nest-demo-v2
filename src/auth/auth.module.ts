@@ -8,6 +8,7 @@ import { UserService } from 'src/user/user.service';
 import { User } from '../user/entities/user.entity';
 import { JWT_SECRET } from '../common/const';
 import { JwtStrategy } from '../common/jwt-auth.strategy';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JwtStrategy } from '../common/jwt-auth.strategy';
         };
       },
     }),
+    RedisModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, UserService, JwtStrategy],

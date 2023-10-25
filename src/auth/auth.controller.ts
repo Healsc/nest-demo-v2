@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Request } from '@nestjs/common';
+import { Controller, Post, Body, Get, Request, Headers } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UserService } from '../user/user.service';
@@ -24,8 +24,11 @@ export class AuthController {
   }
 
   @Post('logout')
-  logout() {
-    return true;
+  logout(@Headers() headers: Record<string, string>) {
+    const { authorization } = headers;
+    const token = authorization.split(' ')[1];
+    const res = this.authService.logout(token);
+    return res;
   }
 
   @Get('user')

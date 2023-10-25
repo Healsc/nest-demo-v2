@@ -21,6 +21,12 @@ export class RedisService {
     return value;
   }
 
+  //获取值
+  async keys(key: any) {
+    const value = await this.redisClient.keys(key);
+    return value;
+  }
+
   /**
    * 设置值
    * @param key {string} key

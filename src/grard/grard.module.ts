@@ -7,6 +7,7 @@ import { GrardController } from './grard.controller';
 import { JwtStrategy } from '../common/jwt-auth.strategy';
 import { User } from '../user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
+import { RedisModule } from 'src/redis/redis.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { UserService } from 'src/user/user.service';
         };
       },
     }),
+    RedisModule,
   ],
   controllers: [GrardController],
   providers: [GrardService, JwtStrategy, UserService],

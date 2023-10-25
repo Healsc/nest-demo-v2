@@ -1,15 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { genSaltSync, hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import * as dayjs from 'dayjs';
 
 import { CeateUserInterface } from './interface/user';
 import { UserService } from 'src/user/user.service';
+import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
+    private readonly redisService: RedisService,
   ) {}
   async resign(user: CeateUserInterface) {
     const { username, password } = user;
@@ -49,5 +52,17 @@ export class AuthService {
       token: jwt,
       username,
     };
+  }
+
+  async logout(token: string) {
+    const de = this.jwtService.verify(token);
+    const { exp } = de;
+    const second = dayjs.unix(exp).diff(dayjs(), 'seconds');
+    if (second > 0) {
+      try {
+        await this.redisService.set(token, '', second);
+      } catch {}
+    }
+    return true;
   }
 }
