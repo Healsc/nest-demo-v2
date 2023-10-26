@@ -42,7 +42,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (token !== cacheToken) {
       throw new UnauthorizedException('Unauthorized - token不正确');
     }
-    await this.redisService.set(`token_${id}`, token, 1 * 60);
+    await this.redisService.set(`token_${id}`, token, 10 * 60);
     // 黑名单方式开始
     // let keys = [];
     // try {

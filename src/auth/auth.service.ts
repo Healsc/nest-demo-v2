@@ -48,7 +48,7 @@ export class AuthService {
       username,
     });
     const { id } = currUser;
-    this.redisService.set(`token_${id}`, jwt, 1 * 60);
+    this.redisService.set(`token_${id}`, jwt, 10 * 60);
     return {
       success: true,
       token: jwt,
