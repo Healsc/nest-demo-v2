@@ -35,12 +35,14 @@ export class AuthService {
     const currUser = await this.userService.findOneBy({ username });
     if (!currUser) {
       return {
+        success: false,
         error: '用户不存在或密码错误',
       };
     }
     const p = compareSync(password, currUser.password);
     if (!p) {
       return {
+        success: false,
         error: '用户不存在或密码错误',
       };
     }
