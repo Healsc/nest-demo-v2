@@ -3,9 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import type { Request } from 'express';
 
-import { JWT_SECRET } from './const';
-import { UserService } from '../user/user.service';
-import { RedisService } from 'src/redis/redis.service';
+import { JWT_SECRET } from '../const';
+import { UserService } from '../../user/user.service';
+import { RedisService } from 'src/common/redis/redis.service';
 
 export interface JwtPayload {
   username: string;

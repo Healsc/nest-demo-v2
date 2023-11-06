@@ -14,7 +14,7 @@ import { JwtAuthGuard } from './jwt-auth.grard';
 import { GrardService } from './grard.service';
 import { CreateGrardDto } from './dto/create-grard.dto';
 import { UpdateGrardDto } from './dto/update-grard.dto';
-import { Public } from 'src/common/public.decorator';
+import { Public } from 'src/common/jwt/public.decorator';
 
 @Controller('grard')
 export class GrardController {

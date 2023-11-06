@@ -7,8 +7,8 @@ import { AuthController } from './auth.controller';
 import { UserService } from 'src/user/user.service';
 import { User } from '../user/entities/user.entity';
 import { JWT_SECRET } from '../common/const';
-import { JwtStrategy } from '../common/jwt-auth.strategy';
-import { RedisModule } from 'src/redis/redis.module';
+import { JwtStrategy } from '../common/jwt/jwt-auth.strategy';
+import { RedisModule } from 'src/common/redis/redis.module';
 
 @Module({
   imports: [

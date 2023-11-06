@@ -4,10 +4,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from './const';
 import { GrardService } from './grard.service';
 import { GrardController } from './grard.controller';
-import { JwtStrategy } from '../common/jwt-auth.strategy';
+import { JwtStrategy } from '../common/jwt/jwt-auth.strategy';
 import { User } from '../user/entities/user.entity';
 import { UserService } from 'src/user/user.service';
-import { RedisModule } from 'src/redis/redis.module';
+import { RedisModule } from 'src/common/redis/redis.module';
 
 @Module({
   imports: [

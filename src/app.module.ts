@@ -7,10 +7,10 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { SessionModule } from './session/session.module';
-import { JwtAuthGuard } from './common/jwt-auth.grard';
+import { JwtAuthGuard } from './common/jwt/jwt-auth.grard';
 import { AuthModule } from './auth/auth.module';
 import { GrardModule } from './grard/grard.module';
-import { RedisModule } from './redis/redis.module';
+import { RedisModule } from './common/redis/redis.module';
 import { TestModule } from './test/test.module';
 
 @Module({

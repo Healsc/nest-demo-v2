@@ -5,7 +5,7 @@ import * as dayjs from 'dayjs';
 
 import { CeateUserInterface } from './interface/user';
 import { UserService } from 'src/user/user.service';
-import { RedisService } from 'src/redis/redis.service';
+import { RedisService } from 'src/common/redis/redis.service';
 
 @Injectable()
 export class AuthService {
