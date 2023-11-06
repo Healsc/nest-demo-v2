@@ -14,7 +14,6 @@ export class RedisService {
   //获取值
   async get(key: any) {
     let value = await this.redisClient.get(key);
-    console.log({ value });
     try {
       value = JSON.parse(value);
     } catch (error) {}

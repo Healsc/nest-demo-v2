@@ -27,21 +27,8 @@ export class UserService {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
-  ) {}
-  test(p: string) {
-    const hash = md5(p);
-    const salt = genSaltSync(10);
-    const hash2 = hashSync(p, salt);
-    const f = compareSync(p, hash2);
-    const f2 = compareSync('p', hash2);
-    return {
-      p,
-      hash,
-      hash2,
-      f,
-      f2,
-    };
-  }
+  ) { }
+
   async create(createUserDto: CeateUserInterface) {
     try {
       const res = await this.userRepository.save(createUserDto);
@@ -67,10 +54,6 @@ export class UserService {
     } catch {
       throw new InternalServerErrorException('查询失败');
     }
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
   }
 
   async findOneBy(where: FindUserInterface) {
