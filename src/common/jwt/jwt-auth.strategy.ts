@@ -13,6 +13,23 @@ export interface JwtPayload {
   exp: string;
 }
 
+/**
+ * 自定义从Authorization cookies中获取token
+ * 需要使用cookies-parser中间件
+ * https://static.kancloud.cn/juukee/nestjs/2676781
+ * 默认是从Authorization头读取JWT的配置，其方案为“bearer”
+ * https://www.npmjs.com/package/passport-jwt
+ * @param {Request} req 
+ * @returns {string | null}
+ */
+var cookieExtractor = (req: Request): string | null => {
+  var token = null;
+  if (req && req.cookies) {
+    token = req.cookies['token'];
+  }
+  return token;
+};
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
@@ -20,7 +37,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly redisService: RedisService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      // jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // 默认
+      jwtFromRequest: cookieExtractor, // 自定义
       ignoreExpiration: false,
       secretOrKey: JWT_SECRET,
       passReqToCallback: true,
@@ -28,7 +46,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(req: Request, payload: JwtPayload) {
-    const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+    // const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req); // 默认
+    const token = cookieExtractor(req); // 自定义
     const { username } = payload;
     const user = await this.userService.validate(username);
     if (!user) {

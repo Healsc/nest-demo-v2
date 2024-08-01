@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import * as session from 'express-session';
+import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 
 import { AppModule } from './app.module';
@@ -18,6 +19,7 @@ async function bootstrap() {
       // transform: true,
     }),
   );
+  app.use(cookieParser());
   app.use(
     session({
       secret: 'session_secret', // 加密
