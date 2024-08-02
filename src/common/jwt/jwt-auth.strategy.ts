@@ -53,15 +53,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException('Unauthorized - token验证失败');
     }
-    const { id } = user;
-    const cacheToken = await this.redisService.get(`token_${id}`);
+    const cacheToken = await this.redisService.get(token);
     if (!cacheToken) {
       throw new UnauthorizedException('Unauthorized - token已过期');
     }
-    if (token !== cacheToken) {
-      throw new UnauthorizedException('Unauthorized - token不正确');
-    }
-    await this.redisService.set(`token_${id}`, token, 10 * 60);
+
+    await this.redisService.set(token, user, 10 * 60);
     // 黑名单方式开始
     // let keys = [];
     // try {

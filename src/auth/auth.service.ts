@@ -13,7 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
     private readonly redisService: RedisService,
-  ) {}
+  ) { }
   async resign(user: CeateUserInterface) {
     const { username, password } = user;
     const haveuser = await this.userService.findOneBy({ username });
@@ -50,7 +50,7 @@ export class AuthService {
       username,
     });
     const { id } = currUser;
-    this.redisService.set(`token_${id}`, jwt, 10 * 60);
+    this.redisService.set(jwt, currUser, 10 * 60);
     return {
       success: true,
       token: jwt,
@@ -61,12 +61,9 @@ export class AuthService {
   async logout(token: string) {
     const de = this.jwtService.verify(token);
     const { exp } = de;
-    const second = dayjs.unix(exp).diff(dayjs(), 'seconds');
-    if (second > 0) {
-      try {
-        await this.redisService.set(token, '', second);
-      } catch {}
-    }
+    try {
+      await this.redisService.del(token);
+    } catch { }
     return {
       success: true,
       message: '退出成功',
